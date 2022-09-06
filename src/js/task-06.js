@@ -1,17 +1,14 @@
-const refs = {
-    validationInput: document.querySelector(`#valiadation-input`),
-};
+const inputElement = document.getElementById('validation-input');
+inputElement.addEventListener('blur', hendleInput);
 
-const testValidation = (quantity) => {
-    if (quantity.currentTarget.value === "") return;
+function hendleInput(event) {
+    const valueRef = Number(event.currentTarget.getAttribute('data-length'));
+    if (event.currentTarget.value.length === valueRef) {
+        inputElement.classList.add('valid');
+        inputElement.classList.remove('invalid');
+        return;
+    }
 
-    quantity.currentTarget.value.length > refs.validationInput.dataset.length
-        ? refs.validationInput.classList.add("invalid")
-        : refs.validationInput.classList.add("valid")
+    inputElement.classList.add('invalid');
+    inputElement.classList.remove('valid');
 }
-
-const resetValidation = (quantity) =>
-    refs.validationInput.classList.remove("valid", "invalid");
-
-refs.validationInput.addEventListener("blur", testValidation);
-refs.validationInput.addEventListener("focus", resetValidation);
